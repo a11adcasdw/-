@@ -1,0 +1,36 @@
+class Solution {
+    class node//链表节点
+    {
+        int val;
+        public node(int value) {
+            this.val=value;
+        }
+        node next;
+    }
+    public int lastRemaining(int n, int m) {
+        if(m==1)return n-1;//一次一个直接返回最后一个即可
+        node head=new node(0);
+        node team=head;//创建一个链表
+        for(int i=1;i<n;i++)
+        {
+            team.next=new node(i);
+            team=team.next;
+        }
+        team.next=head;//使形成环
+        int index=0;//从0开始计数
+        while (head.next!=head) {//当剩余节点不止一个的时候
+            //如果index=m-2 那就说明下个节点(m-1)该删除了
+            if(index==m-2)
+            {
+                head.next=head.next.next;
+                index=0;
+            }
+            else {
+                index++;
+            }
+            head=head.next;
+        }
+        return head.val;
+    }
+}
+转载力扣
